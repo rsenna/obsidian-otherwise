@@ -1,7 +1,7 @@
 {
 	"id": "obsidian-otherwise",
 	"name": "OtherWise",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"minAppVersion": "1.4.10",
 	"description": "OtherWise manages aliases across your vault.",
 	"author": "Rogério Senna",

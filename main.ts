@@ -1,9 +1,17 @@
 import { EditLinkModal } from 'EditLinkModal';
-import { LinkType } from 'Link';
-import { link } from 'fs';
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import {
+	App,
+	Editor,
+	MarkdownView,
+	Modal,
+	Notice,
+	Plugin,
+	PluginSettingTab,
+	Setting
+} from 'obsidian';
 
-// Remember to rename these classes and interfaces!
+// REMEMBER to run during development: npm run dev
+// TODO: code cleanup; use file structure similar to Obsidian Supernotes
 
 interface OtherWisePluginSettings {
 	mySetting: string;
@@ -50,25 +58,45 @@ export default class OtherWisePlugin extends Plugin {
 			}
 		});
 
-		// This adds a complex command that can check whether the current state of the app allows execution of the command
+		// // This adds a complex command that can check whether the current state of the app allows execution of the command
+		// this.addCommand({
+		// 	id: 'open-sample-modal-complex',
+		// 	name: 'Open sample modal (complex)',
+		// 	checkCallback: (checking: boolean) => {
+		// 		// Conditions to check
+		// 		const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
+		// 		if (markdownView) {
+		// 			this.app.workspace.activeEditor?.editor?.getSelection
+		//
+		// 			// If checking is true, we're simply "checking" if the command can be run.
+		// 			// If checking is false, then we want to actually perform the operation.
+		// 			if (!checking) {
+		// 				new SampleModal(this.app, 'Whoa!').open();
+		// 			}
+		//
+		// 			// This command will only show up in Command Palette when the check function returns true
+		// 			return true;
+		// 		}
+		// 	}
+		// });
+
 		this.addCommand({
-			id: 'open-sample-modal-complex',
-			name: 'Open sample modal (complex)',
-			checkCallback: (checking: boolean) => {
-				// Conditions to check
-				const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (markdownView) {
-					this.app.workspace.activeEditor?.editor?.getSelection
+			id: 'otherwise-add-link-word-selection',
+			name: 'Add link to current word/selection',
+			editorCheckCallback: (checking: boolean, editor: Editor, view: MarkdownView): boolean => {
+				const result = true;
 
-					// If checking is true, we're simply "checking" if the command can be run.
-					// If checking is false, then we want to actually perform the operation.
-					if (!checking) {
-						new SampleModal(this.app, 'Whoa!').open();
-					}
+				const head = editor.getCursor('head')
+				const wordRange = editor.wordAt(head)
 
-					// This command will only show up in Command Palette when the check function returns true
-					return true;
+				if (!wordRange || checking) {
+					return !!wordRange;
 				}
+
+				const selection = editor.getRange(wordRange.from, wordRange.to);
+				editor.replaceRange('[[' + selection + ']]', wordRange.from, wordRange.to);
+
+				return result;
 			}
 		});
 
@@ -81,7 +109,6 @@ export default class OtherWisePlugin extends Plugin {
 				if (checking) {
 					return result;
 				}
-
 
 				// TODO:
 				// 1. Get the link under the cursor
@@ -99,12 +126,11 @@ export default class OtherWisePlugin extends Plugin {
 				// const editor = this.app.workspace.activeEditor.editor;
 				// const cursor = editor.getCursor();
 
-
 				const editLinkModal = new EditLinkModal(this.app, editor, () => {});
 				editLinkModal.open();
 
 				return result;
- 			}
+			}
 		});
 
 		// This adds a settings tab so the user can configure various aspects of the plugin

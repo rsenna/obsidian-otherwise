@@ -6,7 +6,7 @@ tags:
 aliases:
   - 
 created: 2023-11-08T10:44:57+02:00
-updated: 2024-03-05T23:08:59+01:00
+updated: 2024-03-05T23:19:29+01:00
 ---
 > [!danger] Note to myself: README.md IS A HARD LINK TO AN OBSIDIAN NOTE!
 ## Description
@@ -16,22 +16,28 @@ OtherWise: Aliases and links
 ## Current Goal
 
 - [x] First step: create new repo from template ✅ 2023-10-30
-- [ ] Add a link to a word, search by title
+- [/] Add a link to a word, search by title
 
 ## Features
 
-- [ ] Add a link to a word, search by title
-    - [ ] If there is only 1 hit, use it; if there are more, make user choose
+- [/] Add a link to a word
+    - [ ] Search by title (default)
+    - [ ] Add dialog/dropdown to also search by alias
+    - [ ] Should work for plain words
+    - [ ] Should work for a current markdown link as well
+    - [ ] Should work for a current wiki-link as well
+    - [ ] If there is only 1 hit, use it
+    - [ ] If there are more, make user choose
     - [ ] Same for selection (multiple/partial words)
         - Condition: Cannot have line breaks
     - [ ] Use [[OmniSearch]] if it's available
-- [ ] Add a link to a word, search by alias
-    - [ ] If there is only 1 hit, use it; if there are more, make user choose
-    - [ ] Use [[OmniSearch]] if it's available
 - [ ] Find all aliases in use for a page
     - [ ] Option to add all of them to frontmatter 
-- [ ] Edit link
-    - [ ] Dialog with link text, link address, toggle between wiki-link and markdown link, delete link, ...
+- [/] Edit link
+    - [/] Dialog with link text, link address
+    - [ ] Toggle between wiki-link and markdown link
+    - [ ] Delete link
+    - [ ] What else...?
 - [ ] All links in page
     - [ ] See all links in page | all selected links in a dialog
     - [ ] Options to open all links, or open them individually
