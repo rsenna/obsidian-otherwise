@@ -6,7 +6,7 @@ tags:
 aliases:
   - 
 created: 2023-11-08T10:44:57+02:00
-updated: 2024-03-05T23:19:29+01:00
+updated: 2024-03-09T15:36:22+01:00
 ---
 > [!danger] Note to myself: README.md IS A HARD LINK TO AN OBSIDIAN NOTE!
 ## Description
@@ -16,20 +16,21 @@ OtherWise: Aliases and links
 ## Current Goal
 
 - [x] First step: create new repo from template ✅ 2023-10-30
-- [/] Add a link to a word, search by title
+- [x] Add a link to word, selection or link ✅ 2024-03-09
+- [/] Make Link: Search link address, allow user to replace it if there are many matching pages 🛫 2024-03-09
 
 ## Features
 
-- [/] Add a link to a word
+- [/] Make Link
     - [ ] Search by title (default)
     - [ ] Add dialog/dropdown to also search by alias
-    - [ ] Should work for plain words
-    - [ ] Should work for a current markdown link as well
-    - [ ] Should work for a current wiki-link as well
+    - [x] Should work for plain words ✅ 2024-03-09
+    - [x] Should work for a current markdown link as well ✅ 2024-03-09
+    - [x] Should work for a current wiki-link as well ✅ 2024-03-09
     - [ ] If there is only 1 hit, use it
     - [ ] If there are more, make user choose
-    - [ ] Same for selection (multiple/partial words)
-        - Condition: Cannot have line breaks
+    - [x] Same for selection (multiple/partial words) ✅ 2024-03-09
+        - [x] Condition: Cannot have line breaks ✅ 2024-03-09
     - [ ] Use [[OmniSearch]] if it's available
 - [ ] Find all aliases in use for a page
     - [ ] Option to add all of them to frontmatter 

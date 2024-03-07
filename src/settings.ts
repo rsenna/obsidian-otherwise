@@ -1,29 +1,33 @@
-import SupernotesPlugin from 'src/main';
+import OtherWisePlugin from 'src/main';
 
 import {PluginSettingTab, App, Setting} from "obsidian";
 
-export interface SupernotesPluginSettings {
+export interface GlobalSettings {
+  useMarkdownLinks: boolean
+}
+
+export interface OtherWisePluginSettings {
   basic: {
     bla: string
   }
 }
 
-export const DEFAULT_SETTINGS: SupernotesPluginSettings = {
+export const DEFAULT_SETTINGS: OtherWisePluginSettings = {
   basic: {
     bla: 'bla-bla'
   }
 };
 
 export interface HasSettings {
-  loadSettings(): Promise<SupernotesPluginSettings>
-
-  saveSettings(): Promise<void>
+  getGlobalSettings(): GlobalSettings
+  loadLocalSettings(): Promise<OtherWisePluginSettings>
+  saveLocalSettings(): Promise<void>
 }
 
-export class SupernotesSettingTab extends PluginSettingTab {
-  plugin: SupernotesPlugin
+export class OtherWiseSettingTab extends PluginSettingTab {
+  plugin: OtherWisePlugin
 
-  constructor(app: App, plugin: SupernotesPlugin) {
+  constructor(app: App, plugin: OtherWisePlugin) {
     super(app, plugin)
     this.plugin = plugin
   }
@@ -38,7 +42,7 @@ export class SupernotesSettingTab extends PluginSettingTab {
       header.ariaLabel = desc ?? null
     }
 
-    createHeader('Basic', 'Required information when connecting with Supernotes')
+    createHeader('Basic', 'Required information when connecting with OtherWise')
 
     new Setting(containerEl)
       .setName('Bla')
@@ -46,10 +50,10 @@ export class SupernotesSettingTab extends PluginSettingTab {
       .setClass('bla')
       .addText(text => text
         .setPlaceholder('Enter your API Key')
-        .setValue(this.plugin.settings.basic.bla)
+        .setValue(this.plugin.localSettings.basic.bla)
         .onChange(async (value) => {
-          this.plugin.settings.basic.bla = value;
-          await this.plugin.saveSettings();
+          this.plugin.localSettings.basic.bla = value;
+          await this.plugin.saveLocalSettings();
         }))
   }
 }

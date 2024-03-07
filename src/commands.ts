@@ -1,37 +1,39 @@
 import {App, Editor, MarkdownView} from "obsidian";
-import {SupernotesPluginSettings} from "./settings";
+import {GlobalSettings, OtherWisePluginSettings} from "./settings";
 import {EditLinkModal} from "./modals/EditLinkModal";
-import {Link} from "./link";
+import {getAnyLinkUnderCursor, getSelection, getWordUnderCursor, Link, LinkType, MaybeEditorToken} from "./link";
 
-export const addLinkCurrentWordSelection = (
-  app: App,
+export const makeLink = (
   editor: Editor,
-  view: MarkdownView,
-  settings: SupernotesPluginSettings,
+  globalSettings: () => GlobalSettings,
+  localSettings: OtherWisePluginSettings,
   checking: boolean
 ) => {
-  const result = true;
+  const globalLinkType: LinkType = globalSettings().useMarkdownLinks ? 'markdown' : 'wikilink'
 
-  const head = editor.getCursor('head')
-  const wordRange = editor.wordAt(head)
+  const token: MaybeEditorToken =
+    getAnyLinkUnderCursor(editor) ||
+    getSelection(editor) ||
+    getWordUnderCursor(editor)
 
-  if (!wordRange || checking) {
-    return !!wordRange;
+  if (!token || !token.range) {
+    return false;
   }
 
-  const selection = editor.getRange(wordRange.from, wordRange.to);
-  const link = new Link(selection)
-  link.linkType = 'markdown'
-  editor.replaceRange('[[' + selection + ']]', wordRange.from, wordRange.to);
+  if (!checking) {
+    const link = new Link(token.text, globalLinkType)
+    link.linkType = globalLinkType; // replace link type
+    editor.replaceRange(link.text, token.range.from, token.range.to);
+  }
 
-  return result;
+  return true;
 };
 
 export const editLink = (
   app: App,
   editor: Editor,
   view: MarkdownView,
-  settings: SupernotesPluginSettings,
+  localSettings: OtherWisePluginSettings,
   checking: boolean
 ) => {
   const result = true;

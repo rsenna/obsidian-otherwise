@@ -15,14 +15,10 @@ export class EditLinkModal extends Modal {
   }
 
   onOpen() {
+    const link = this.getLinkUnderCursor();
+
     const {contentEl} = this;
     contentEl.createEl('h1', {text: 'Edit Link'});
-
-    const link = this.getLinkUnderCursor();
-    console.log('linkType', link?.linkType)
-    console.log('alias', link?.alias)
-    console.log('address', link?.address)
-    console.log('text', link?.text)
 
     new Setting(contentEl)
       .setName('Link Text/Alias')
@@ -114,15 +110,6 @@ export class EditLinkModal extends Modal {
         linkEnd++;
       }
     }
-
-    // DEBUG:
-    // console.log('getLinkUnderCursor: currentLine', currentLine)
-    // console.log('getLinkUnderCursor: currentLine.length', currentLine.length)
-    // console.log('getLinkUnderCursor: foundStart', foundStart)
-    // console.log('getLinkUnderCursor: foundEnd', foundEnd)
-    // console.log('getLinkUnderCursor: linkType', linkType)
-    // console.log('getLinkUnderCursor: linkStart', linkStart)
-    // console.log('getLinkUnderCursor: linkEnd', linkEnd)
 
     const text = foundStart && foundEnd
       ? currentLine.slice(linkStart, linkEnd + 1)
