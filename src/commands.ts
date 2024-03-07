@@ -1,6 +1,7 @@
 import {App, Editor, MarkdownView} from "obsidian";
 import {SupernotesPluginSettings} from "./settings";
 import {EditLinkModal} from "./modals/EditLinkModal";
+import {Link} from "./link";
 
 export const addLinkCurrentWordSelection = (
   app: App,
@@ -19,6 +20,8 @@ export const addLinkCurrentWordSelection = (
   }
 
   const selection = editor.getRange(wordRange.from, wordRange.to);
+  const link = new Link(selection)
+  link.linkType = 'markdown'
   editor.replaceRange('[[' + selection + ']]', wordRange.from, wordRange.to);
 
   return result;

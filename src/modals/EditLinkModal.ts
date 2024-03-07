@@ -1,4 +1,4 @@
-import {Link, LinkType} from "src/Link";
+import {Link, LinkType} from "src/link";
 import {App, Editor, Modal, Setting} from "obsidian";
 
 type Action = () => void;

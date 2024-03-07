@@ -16,18 +16,20 @@ export class Link {
       this._linkType = 'wikilink';
       this._alias = text.split('|')[0].slice(2).trim();
       this._address = text.split('|')[1].slice(0, -2).trim();
+
     } else if (MARKDOWN_LINK_REGEX.test(text)) {
       console.log('MARKDOWN regex match');
 
       this._linkType = 'markdown';
       this._alias = text.split(']')[0].slice(1).trim();
       this._address = text.split(']')[1].slice(2, -1).trim();
+
     } else {
       console.log('NO regex match');
 
-      this._linkType = undefined;
+      this._linkType = 'wikilink'; // default
       this._alias = '';
-      this._address = '';
+      this._address = text;
     }
   }
 
