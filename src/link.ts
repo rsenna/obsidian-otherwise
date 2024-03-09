@@ -71,7 +71,15 @@ export class Link {
   }
 
   set address(address: string) {
+    if (this._alias === '') {
+      this._alias = this._address;
+    }
+
     this._address = address;
+
+    if (this._alias === this._address) {
+      this._alias = '';
+    }
   }
 
   get text(): string {

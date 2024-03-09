@@ -58,16 +58,17 @@ export class EditLinkModal extends Modal {
     contentEl.empty();
   }
 
+  // TODO: Delete
   getLinkUnderCursor(): Link | undefined {
     const cursor = this.editor.getCursor();
     const currentLine = this.editor.getLine(cursor.line);
 
-    var linkType: LinkType | undefined = undefined
-    var linkStart = cursor.ch
-    var linkEnd = cursor.ch
-    var foundStart = false
-    var foundEnd = false
-    var markdownFoundOpenParenthesis = false
+    let linkType: LinkType | undefined = undefined
+    let linkStart = cursor.ch
+    let linkEnd = cursor.ch
+    let foundStart = false
+    let foundEnd = false
+    let markdownFoundOpenParenthesis = false
 
     while (linkStart >= 0 && linkEnd <= currentLine.length) {
       if (!foundStart) {
@@ -116,7 +117,7 @@ export class EditLinkModal extends Modal {
       : ''
 
     const link = text
-      ? new Link(text)
+      ? new Link(text, linkType || 'markdown') // TODO: read from global settings
       : undefined
 
     return link

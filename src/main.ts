@@ -1,4 +1,4 @@
-import {Editor, MarkdownView, Notice, Plugin, Vault} from 'obsidian';
+import {Editor, MarkdownView, Notice, Plugin} from 'obsidian';
 import {
   DEFAULT_SETTINGS,
   GlobalSettings,
@@ -31,14 +31,15 @@ export default class OtherWisePlugin extends Plugin implements HasSettings {
 
     this.addCommand({
       id: 'otherwise-make-link',
-      name: 'Make link: Turn current word, link or selection into a link, using the default link format',
-      editorCheckCallback: (checking: boolean, editor: Editor, view: MarkdownView) =>
-        makeLink(this.app, editor, this.getGlobalSettings, this.localSettings, checking)
+      name: 'Make link: Turn selection / word at cursor into a link, or edit link at cursor',
+      // @ts-ignore
+      editorCheckCallback: async (checking: boolean, editor: Editor, view: MarkdownView) =>
+        await makeLink(this.app, editor, this.getGlobalSettings, this.localSettings, checking)
     });
 
     this.addCommand({
       id: 'otherwise-edit-link',
-      name: 'Edit link',
+      name: 'Edit link modal',
       editorCheckCallback: (checking: boolean, editor: Editor, view: MarkdownView) =>
         editLink(this.app, editor, view, this.localSettings, checking)
     });
